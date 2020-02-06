@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import {ThemeProvider} from 'styled-components';
 
+import {StatusBar} from 'react-native';
+
 import {light, dark} from '../styles/theme';
 
 import ThemeContext from './context';
@@ -24,11 +26,20 @@ const ThemeContextProvider = ({children}: Props) => {
       if (!data) {
         setTheme('light');
         await AsyncStorage.setItem(STORAGE_KEY, 'light');
+        StatusBar.setBackgroundColor('#fff');
+        StatusBar.setBarStyle('dark-content');
       } else {
         setTheme(data);
+        if (theme === 'dark') {
+          StatusBar.setBackgroundColor('#000');
+          StatusBar.setBarStyle('light-content');
+          return;
+        }
+        StatusBar.setBackgroundColor('#fff');
+        StatusBar.setBarStyle('dark-content');
       }
     })();
-  }, []);
+  }, [theme]);
 
   const handleTheme = (color: string) => {
     if (color === 'light') {
@@ -41,7 +52,11 @@ const ThemeContextProvider = ({children}: Props) => {
   };
 
   return (
-    <ThemeContext.Provider value={{theme, handleTheme}}>
+    <ThemeContext.Provider
+      value={{
+        theme,
+        handleTheme,
+      }}>
       <ThemeProvider theme={theme === 'light' ? light : dark}>
         {children}
       </ThemeProvider>
