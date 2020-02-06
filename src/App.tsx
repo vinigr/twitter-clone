@@ -1,19 +1,14 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+
+import ThemeContextProvider from './core/ThemeProvider';
+
+import RootNavigator from './routes';
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView />
-    </>
+    <ThemeContextProvider>
+      <RootNavigator />
+    </ThemeContextProvider>
   );
 };
 
