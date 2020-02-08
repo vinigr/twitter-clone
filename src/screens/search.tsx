@@ -1,56 +1,141 @@
-import React from 'react';
+import React, {useState} from 'react';
+
+import Modal from 'react-native-modal';
 
 import styled from 'styled-components/native';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconFeather from 'react-native-vector-icons/Feather';
+import {useTheme} from '@react-navigation/native';
 
-import OpenDrawer from '../components/OpenDrawer';
+import {FlatList} from 'react-native-gesture-handler';
+import {RefreshControl} from 'react-native';
 
-const Search = ({navigation}) => {
-  navigation.setOptions({
-    header: () => (
-      <Header>
-        <OpenDrawer navigationProps={navigation} />
-        <Input />
-        <ButtonStar onPress={() => {}}>
-          <IconFeather name="settings" size={28} color={'#1da1f2'} />
-        </ButtonStar>
-      </Header>
-    ),
-  });
+import Trend from '../components/trendItem';
 
-  return <></>;
+import {trends} from '../data';
+
+const Search = () => {
+  const [visible, setVisible] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const {dark} = useTheme();
+
+  const simulateRefresh = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
+
+  return (
+    <>
+      <Wrapper>
+        <FlatList
+          data={trends}
+          ListHeaderComponent={() => (
+            <ImageMain
+              imageStyle={dark && {opacity: 0.7}}
+              source={{
+                uri:
+                  'https://www.infoescola.com/wp-content/uploads/2019/10/paisagem-ouro-preto-1008049370.jpg',
+              }}>
+              <DescriptionMain>
+                <Topic>Turismo</Topic>
+                <Date> · há 20 minutos</Date>
+              </DescriptionMain>
+              <TextMain numberOfLines={2} ellipsizeMode="tail">
+                Neque porro quisquam est qui dolorem ipsum quia dolor sit amet,
+                consectetur, adipisci velit
+              </TextMain>
+            </ImageMain>
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading}
+              onRefresh={simulateRefresh}
+              colors={['#1da1f2']}
+            />
+          }
+          keyExtractor={item => `${item.id}`}
+          renderItem={({item}) => (
+            <Trend item={item} openModal={() => setVisible(true)} />
+          )}
+        />
+      </Wrapper>
+      <Modal
+        animationIn="fadeIn"
+        animationOut="fadeOut"
+        animationInTiming={100}
+        animationOutTiming={100}
+        onBackButtonPress={() => setVisible(false)}
+        onBackdropPress={() => setVisible(false)}
+        onSwipeComplete={() => setVisible(false)}
+        style={{margin: 0}}
+        isVisible={visible}
+        backdropTransitionOutTiming={0}>
+        <WrapperModal>
+          <ButtonModal>
+            <TextButton>Este assunto é spam</TextButton>
+          </ButtonModal>
+          <ButtonModal>
+            <TextButton>Este assunto é abusivo ou prejudicial</TextButton>
+          </ButtonModal>
+          <ButtonModal>
+            <TextButton>Este assunto é uma duplicação</TextButton>
+          </ButtonModal>
+          <ButtonModal>
+            <TextButton>Este assunto é de baixa qualidade</TextButton>
+          </ButtonModal>
+        </WrapperModal>
+      </Modal>
+    </>
+  );
 };
 
 export default Search;
 
-const Header = styled.View`
-  height: 60px;
+const Wrapper = styled.View``;
+
+const ImageMain = styled.ImageBackground`
+  height: 250px;
+  width: 100%;
+  padding: 20px 10px;
+  justify-content: flex-end;
+`;
+
+const DescriptionMain = styled.View`
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom-width: 1px;
-  border-bottom-color: ${props => props.theme.border};
 `;
 
-const ButtonStar = styled.TouchableOpacity`
-  height: 60px;
-  width: 60px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Input = styled.TextInput.attrs(props => ({
-  placeholder: 'Busca do Twitter',
-  placeholderTextColor: props.theme.border,
-}))`
-  height: 40px;
-  width: 70%;
-  padding: 10px 16px;
-  border-radius: 30px;
-  align-items: center;
-  justify-content: center;
+const Topic = styled.Text`
+  color: #fff;
   font-size: 16px;
-  background-color: ${props => props.theme.input};
+  font-weight: bold;
+`;
+
+const Date = styled.Text`
+  color: #fff;
+  font-size: 16px;
+`;
+
+const TextMain = styled.Text`
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const WrapperModal = styled.View`
+  align-self: center;
+  background-color: ${props => props.theme.background};
+  width: 80%;
+  padding: 10px;
+`;
+
+const ButtonModal = styled.TouchableOpacity`
+  width: 100%;
+  padding: 10px;
+`;
+
+const TextButton = styled.Text`
+  color: ${props => props.theme.text};
+  font-size: 18px;
 `;

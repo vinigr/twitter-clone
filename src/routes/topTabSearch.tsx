@@ -4,18 +4,13 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 
 import {useTheme} from '@react-navigation/native';
 
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Search} from '../screens';
 
 const Tab = createMaterialTopTabNavigator();
 
-const Teste = () => (
-  <View>
-    <Text>Teste</Text>
-    <Icon name="plus" size={28} color="#000" />
-  </View>
-);
+const Test = () => <View />;
 
 const TopTabSearch = () => {
   const {colors} = useTheme();
@@ -39,12 +34,12 @@ const TopTabSearch = () => {
         },
         indicatorStyle: {borderBottomColor: '#1da1f2', borderBottomWidth: 3},
       }}>
-      <Tab.Screen component={Teste} name="Para Você" />
-      <Tab.Screen component={Teste} name="Assuntos do Momento" />
-      <Tab.Screen component={Teste} name="Notícias" />
-      <Tab.Screen component={Teste} name="Esporte" />
-      <Tab.Screen component={Teste} name="Diversão" />
-      <Tab.Screen component={Teste} name="Entretenimento" />
+      <Tab.Screen component={Search} name="Para Você" />
+      <Tab.Screen component={Test} name="Assuntos do Momento" />
+      <Tab.Screen component={Test} name="Notícias" />
+      <Tab.Screen component={Test} name="Esporte" />
+      <Tab.Screen component={Test} name="Diversão" />
+      <Tab.Screen component={Test} name="Entretenimento" />
     </Tab.Navigator>
   );
 };
