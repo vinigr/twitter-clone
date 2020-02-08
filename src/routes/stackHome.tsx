@@ -6,7 +6,7 @@ import {useTheme} from '@react-navigation/native';
 
 import OpenDrawer from '../components/OpenDrawer';
 
-import {Feed} from '../screens';
+import {Feed, DetailTweet} from '../screens';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +20,15 @@ const StackHome = ({navigation}) => {
         component={Feed}
         options={{
           headerLeft: () => <OpenDrawer navigationProps={navigation} />,
+          headerStyle: {
+            backgroundColor: colors.background,
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Tweet"
+        component={DetailTweet}
+        options={{
           headerStyle: {
             backgroundColor: colors.background,
           },
