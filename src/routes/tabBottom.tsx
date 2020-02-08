@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import StackHome from './stackHome';
 import StackSearch from './stackSearch';
+import StackNotifications from './stackNotifications';
 
 const Tab = createBottomTabNavigator();
 
@@ -105,7 +106,7 @@ const TabBottom = props => {
         />
         <Tab.Screen
           name="Notificações"
-          component={Teste}
+          component={StackNotifications}
           options={{
             tabBarIcon: ({color, focused}) => {
               if (focused) {
