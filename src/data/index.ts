@@ -75,3 +75,42 @@ export const tweets = [
     likes: 51,
   },
 ];
+
+export const trends = [
+  {
+    id: 1,
+    name: 'Copa',
+    region: 'Brasil',
+    tweets: '506,4 mil',
+  },
+  {
+    id: 2,
+    name: 'Paisagem',
+    region: 'Brasil',
+    tweets: '1.064',
+  },
+  {
+    id: 3,
+    name: 'Estrelas',
+    region: 'Bahia',
+    tweets: '16 mil',
+  },
+  {
+    id: 4,
+    name: 'Lua',
+    region: 'Bahia',
+    tweets: '12 mil',
+  },
+  {
+    id: 5,
+    name: 'Praia',
+    region: 'Bahia',
+    tweets: '150 mil',
+  },
+  {
+    id: 6,
+    name: 'Carro',
+    region: 'Brasil',
+    tweets: '11 mil',
+  },
+];
