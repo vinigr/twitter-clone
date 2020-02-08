@@ -24,7 +24,18 @@ const RootNavigator = () => {
           width: '89%',
         }}
         drawerContent={props => <DrawerContent {...props} />}>
-        <Drawer.Screen name="Tela Inicial" component={TabBottom} />
+        <Drawer.Screen
+          name="Tela Inicial"
+          component={TabBottom}
+          options={({route}) => {
+            const gestureEnabled =
+              route?.state?.routes[0]?.state?.index === 1 ? false : true;
+
+            return {
+              gestureEnabled: gestureEnabled,
+            };
+          }}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

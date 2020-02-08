@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import {useTheme} from '@react-navigation/native';
 
@@ -10,8 +10,9 @@ import {View, Text, Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import StackHome from './stackHome';
+import StackSearch from './stackSearch';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 const Teste = () => (
   <View>
@@ -21,11 +22,11 @@ const Teste = () => (
 );
 
 const TabBottom = props => {
-  const routeName = props.route.state
-    ? props.route.state.routes[props.route.state.index].name
-    : 'Feed';
+  const routeName =
+    props.route.state?.routes[props.route.state.index].name || 'Home';
 
   const [previousRoute, setPreviousRoute] = useState(routeName);
+  const [isTweetRoute, setIsTweetRoute] = useState(false);
 
   const {colors} = useTheme();
 
@@ -64,27 +65,38 @@ const TabBottom = props => {
   return (
     <>
       <Tab.Navigator
-        labeled={false}
-        barStyle={{
-          backgroundColor: colors.background,
-        }}
-        activeColor="#1da1f2"
-        inactiveColor={colors.border}>
+        tabBarOptions={{
+          activeTintColor: '#1da1f2',
+          inactiveTintColor: colors.border,
+          activeBackgroundColor: colors.background,
+          inactiveBackgroundColor: colors.background,
+          showLabel: false,
+          keyboardHidesTabBar: true,
+        }}>
         <Tab.Screen
           name="Home"
           component={StackHome}
-          options={{
-            tabBarIcon: ({color, focused}) => {
-              if (focused) {
-                return <Icon name="home" size={28} color={color} />;
-              }
-              return <Icon name="home-outline" size={28} color={color} />;
-            },
+          options={({route}) => {
+            if (route.state?.index === 1) {
+              setIsTweetRoute(true);
+            } else if (isTweetRoute !== false) {
+              setIsTweetRoute(false);
+            }
+
+            return {
+              tabBarIcon: ({color, focused}) => {
+                if (focused) {
+                  return <Icon name="home" size={28} color={color} />;
+                }
+                return <Icon name="home-outline" size={28} color={color} />;
+              },
+              tabBarVisible: !isTweetRoute,
+            };
           }}
         />
         <Tab.Screen
-          name="Settings"
-          component={Teste}
+          name="Search"
+          component={StackSearch}
           options={{
             tabBarIcon: ({color}) => (
               <Icon name="magnify" size={28} color={color} />
@@ -116,13 +128,15 @@ const TabBottom = props => {
           }}
         />
       </Tab.Navigator>
-      <StyledAnimatedButton style={animatedStyle}>
-        <Icon
-          name={routeName === 'Mensagens' ? 'email-plus-outline' : 'feather'}
-          size={30}
-          color="#fff"
-        />
-      </StyledAnimatedButton>
+      {!isTweetRoute && (
+        <StyledAnimatedButton style={animatedStyle}>
+          <Icon
+            name={routeName === 'Mensagens' ? 'email-plus-outline' : 'feather'}
+            size={30}
+            color="#fff"
+          />
+        </StyledAnimatedButton>
+      )}
     </>
   );
 };
