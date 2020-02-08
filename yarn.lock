@@ -996,6 +996,15 @@
   resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.6.tgz#c7f2ac187c1f25aa8c30d11baa8f4398eca3bb84"
   integrity sha512-PpMoeXwPUoldCRKDuSi+zK5rT+sJTW6ri6RdGPkSKRzU77Q1d9IaR0O5IKvBj0XSdL3p+dcOa05gk35aGDffBQ==
 
+"@react-navigation/bottom-tabs@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@react-navigation/bottom-tabs/-/bottom-tabs-5.0.0.tgz#1c0ffb3d8683b6b8eacee0a877e3322eca1c76f4"
+  integrity sha512-5H2bxI8fIkJIQHFSZqSHKnTPAZBAl4XssujVl7n+dyOp+RK7FPSUNB3lMo4vLcq8CfjchmRCfM+jrohi2zPhVQ==
+  dependencies:
+    "@react-navigation/routers" "^5.0.0"
+    color "^3.1.2"
+    react-native-iphone-x-helper "^1.2.1"
+
 "@react-navigation/core@^5.0.0":
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-5.0.0.tgz#66f5b948a92e7a7f913d2acdbe4e5de516c836cb"
@@ -1015,13 +1024,6 @@
     "@react-navigation/routers" "^5.0.0"
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
-
-"@react-navigation/material-bottom-tabs@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/@react-navigation/material-bottom-tabs/-/material-bottom-tabs-5.0.0.tgz#fa1efbd5ee08c1de9df128a5314abeac30d85c47"
-  integrity sha512-CEtQ5Pd7J4sqcJJ36XOIrVTteLeBUZo8+0Bsgwew9RFC/oatnq5BPCWhMg44L7D5sHWMh0kSxKO3LCvg2vKVTA==
-  dependencies:
-    "@react-navigation/routers" "^5.0.0"
 
 "@react-navigation/native@^5.0.0":
   version "5.0.0"
