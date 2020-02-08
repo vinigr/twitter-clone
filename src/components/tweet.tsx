@@ -11,11 +11,22 @@ import IconIonicons from 'react-native-vector-icons/Ionicons';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 
 const Tweet = ({item, navigation}) => {
-  const {avatar, name, username, date, content, verified} = item;
+  const {
+    id,
+    avatar,
+    name,
+    username,
+    date,
+    content,
+    verified,
+    likes,
+    comments,
+    retweets,
+  } = item;
   const {colors, dark} = useTheme();
 
   return (
-    <Wrapper>
+    <Wrapper onPress={() => navigation.navigate('Tweet', {id})}>
       <Avatar
         source={{
           uri: avatar,
@@ -50,9 +61,11 @@ const Tweet = ({item, navigation}) => {
         <WrapperInterations>
           <ButtonInteration>
             <IconEvilIcons name="comment" size={28} color={colors.border} />
+            {comments !== 0 && <NumberInteration>{comments}</NumberInteration>}
           </ButtonInteration>
           <ButtonInteration>
             <IconEvilIcons name="retweet" size={30} color={colors.border} />
+            {retweets !== 0 && <NumberInteration>{retweets}</NumberInteration>}
           </ButtonInteration>
           <ButtonInteration>
             <IconIonicons
@@ -60,8 +73,9 @@ const Tweet = ({item, navigation}) => {
               size={24}
               color={colors.border}
             />
+            {likes !== 0 && <NumberInteration>{likes}</NumberInteration>}
           </ButtonInteration>
-          <ButtonInteration>
+          <ButtonInteration onPress={() => console.log('button')}>
             <IconEvilIcons
               name="share-google"
               size={28}
@@ -76,7 +90,7 @@ const Tweet = ({item, navigation}) => {
 
 export default Tweet;
 
-const Wrapper = styled.View`
+const Wrapper = styled.TouchableOpacity`
   flex-direction: row;
   padding: 10px;
   border-bottom-width: 0.5px;
@@ -147,4 +161,12 @@ const WrapperInterations = styled.View`
   width: ${Dimensions.get('window').width - 140}px;
 `;
 
-const ButtonInteration = styled.TouchableOpacity``;
+const ButtonInteration = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`;
+
+const NumberInteration = styled.Text`
+  margin-left: 4px;
+  color: ${props => props.theme.border};
+`;

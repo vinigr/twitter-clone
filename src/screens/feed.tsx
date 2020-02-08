@@ -88,10 +88,12 @@ const Feed = ({navigation}) => {
 export default Feed;
 
 const WrapperModal = styled.View`
-  height: 300px;
+  height: 320px;
   width: 100%;
   padding: 4px 0 10px;
   bottom: 0;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
   position: absolute;
   align-items: center;
   background-color: ${props => props.theme.background};
@@ -109,7 +111,7 @@ const DragView = styled.View`
   width: 44px;
   border-radius: 20px;
   margin-bottom: 16px;
-  background-color: #bfbfbf;
+  background-color: ${props => props.theme.card};
 `;
 
 const TextMainModal = styled.Text`
@@ -133,7 +135,7 @@ const ButtonModal = styled.TouchableOpacity`
   flex-direction: row;
   width: 100%;
   padding: 6px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const OptionContent = styled.View`
